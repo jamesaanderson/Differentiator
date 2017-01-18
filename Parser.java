@@ -132,6 +132,19 @@ public class Parser {
             } else {
                 return new Constant(Double.parseDouble(token.value));
             }
+        } else if (token.type == Lexer.TokenType.VARIABLE) {
+            if (this.itr.hasNext()) {
+                Lexer.Token nextToken = this.itr.next();
+
+                if (nextToken.type == Lexer.TokenType.POWER) {
+                    return new Poly(1,token.value,Double.parseDouble(this.itr.next().value));
+                } else {
+                    this.itr.previous(); 
+                    return new Poly(1,token.value,1);
+                }
+            } else {
+                return new Poly(1,token.value,1);
+            }
         }
 
         return new Constant(0.);
