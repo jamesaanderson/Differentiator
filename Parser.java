@@ -131,9 +131,10 @@ public class Parser {
         }
 
         // print Abstract-Syntax-Tree
-        System.out.println(this.expr);
+        //System.out.println(this.expr);
     }
 
+    // parse each scenario
     public AST parseTerm(Lexer.Token token) {
         if (token.type == Lexer.TokenType.NUMBER) {
             if (this.itr.hasNext()) {
