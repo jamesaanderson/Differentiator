@@ -10,10 +10,13 @@ public class Differentiator {
     }
 
     public static String derive(String in) {
+        // tokenize
         Lexer l = new Lexer(in);
+        // parse
         Parser p = new Parser(l);
         p.parse();
 
+        // interpret
         return p.expr.derive();
     }
 }

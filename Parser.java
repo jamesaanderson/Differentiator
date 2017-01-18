@@ -22,7 +22,13 @@ public class Parser {
 
         @Override
         public String derive() {
-            return this.left.derive() + " + " + this.right.derive(); 
+            if (this.left.derive().equals("0")) {
+                return this.right.derive();
+            } else if (this.right.derive().equals("0")) {
+                return this.left.derive();
+            } else {
+                return this.left.derive() + " + " + this.right.derive(); 
+            }
         }
 
         @Override
@@ -38,7 +44,13 @@ public class Parser {
 
         @Override
         public String derive() {
-            return this.left.derive() + " + " + this.right.derive(); 
+            if (this.left.derive().equals("0")) {
+                return "-" + this.right.derive();
+            } else if (this.right.derive().equals("0")) {
+                return this.left.derive();
+            } else {
+                return this.left.derive() + " - " + this.right.derive();
+            }
         }
 
         @Override
@@ -61,6 +73,7 @@ public class Parser {
         @Override
         public String derive() {
             if (this.power == 1) {
+                // dy/dx 8x -> 8 instead of 8x^0
                 return this.coeff + "";
             } else {
                 return this.power * this.coeff + this.var + "^" + (this.power - 1);
@@ -93,10 +106,12 @@ public class Parser {
 
     Lexer lexer;
     ListIterator<Lexer.Token> itr;
+    // expression is root
     AST expr;
 
     public Parser(Lexer lexer) {
         this.lexer = lexer;
+        // tokenize
         this.lexer.scan();
 
         this.itr = this.lexer.tokens.listIterator();
@@ -115,6 +130,7 @@ public class Parser {
             }
         }
 
+        // print Abstract-Syntax-Tree
         System.out.println(this.expr);
     }
 

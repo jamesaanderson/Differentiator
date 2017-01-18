@@ -40,9 +40,11 @@ public class Lexer {
         this.input = input;
     }
     
+    // 5x^2 + 9x -> [NUMBER 5, VARIABLE x, POWER ^, NUMBER 2, PLUS +, NUMBER 9, VARIABLE x]
     public void scan() {
         StringBuffer patternBuffer = new StringBuffer();
         for (TokenType token: TokenType.values()) {
+            // named regex groups
             patternBuffer.append("(?<" + token.name() + ">" + token.pattern + ")|");
         }
         
