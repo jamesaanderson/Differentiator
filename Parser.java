@@ -161,10 +161,13 @@ public class Parser {
                 if (nextToken.type == Lexer.TokenType.VARIABLE) {
                     return this.parsePoly(token, nextToken);
                 } else {
+                    // undo .next()
                     this.itr.previous();
+                    // 5
                     return new Constant(Double.parseDouble(token.value)); 
                 }
             } else {
+                // 5
                 return new Constant(Double.parseDouble(token.value));
             }
         } else if (token.type == Lexer.TokenType.VARIABLE) {
@@ -172,30 +175,37 @@ public class Parser {
                 Lexer.Token nextToken = this.itr.next();
 
                 if (nextToken.type == Lexer.TokenType.POWER) {
+                    // x^5
                     return new Poly(1,token.value,Double.parseDouble(this.itr.next().value));
                 } else {
                     this.itr.previous(); 
+                    // x
                     return new Poly(1,token.value,1);
                 }
             } else {
+                // x
                 return new Poly(1,token.value,1);
             }
         } else if (token.type == Lexer.TokenType.SIN) {
+            // sin(x)
             return new Sin(this.itr.next().value); 
+        } else {
+            throw new RuntimeException("Parsing Error");    
         }
-
-        return new Constant(0.);
     }
 
     public Poly parsePoly(Lexer.Token token, Lexer.Token nextToken) {
         if (this.itr.hasNext()) {
             if (this.itr.next().type == Lexer.TokenType.POWER) {
+                // 5x^5
                 return new Poly(Double.parseDouble(token.value),nextToken.value,Double.parseDouble(this.itr.next().value));
             } else {
                 this.itr.previous();
+                // 5x
                 return new Poly(Double.parseDouble(token.value),nextToken.value,1);
             }
         } else {
+            // 5x
             return new Poly(Double.parseDouble(token.value),nextToken.value,1);
         }
     }
