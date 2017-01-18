@@ -104,6 +104,24 @@ public class Parser {
         }
     }
 
+    public static class Sin implements AST {
+        String var;
+
+        public Sin(String var) {
+            this.var = var; 
+        }
+
+        @Override
+        public String derive() {
+            return "cos(" + this.var + ")"; 
+        }
+
+        @Override
+        public String toString() {
+            return "Sin(" + this.var + ")";
+        }
+    }
+
     Lexer lexer;
     ListIterator<Lexer.Token> itr;
     // expression is root
@@ -162,6 +180,8 @@ public class Parser {
             } else {
                 return new Poly(1,token.value,1);
             }
+        } else if (token.type == Lexer.TokenType.SIN) {
+            return new Sin(this.itr.next().value); 
         }
 
         return new Constant(0.);

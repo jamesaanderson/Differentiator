@@ -6,6 +6,7 @@ public class Lexer {
     
     public static enum TokenType {
         NUMBER("-?([0-9]+(\\.[0-9]+)?)"),
+        SIN("sin"),
         VARIABLE("[a-zA-Z]+"),
         PLUS("[+]"),
         MINUS("[-]"),
@@ -64,6 +65,8 @@ public class Lexer {
                 this.tokens.add(new Token(TokenType.MINUS, m.group(TokenType.MINUS.name())));  
             } else if (m.group(TokenType.POWER.name()) != null) {
                 this.tokens.add(new Token(TokenType.POWER, m.group(TokenType.POWER.name())));
+            } else if (m.group(TokenType.SIN.name()) != null) {
+                this.tokens.add(new Token(TokenType.SIN, m.group(TokenType.SIN.name())));
             } else if (m.group(TokenType.WHITESPACE.name()) != null) {
                 continue;
             }

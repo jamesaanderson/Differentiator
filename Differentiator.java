@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Differentiator {
     public static void main(String[] args) {
-        System.out.println("Types supported: 5x + 2, x + 5, 5x^2 + 32x - 9, 8, 8x");
+        System.out.println("Types supported: 5x + 2, x + 5, 5x^2 + 32x - 9, 8, 8x, sin(x) + 5x^8");
 
         while (true) {
             Scanner sc = new Scanner(System.in);
